@@ -1,7 +1,10 @@
 package it.unibo.oop.lab.lambda;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -64,7 +67,9 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Optional.filter
          */
-        return emptyList();
+        final List<Optional<T>> l = new ArrayList<>(list.size());
+        list.forEach(t -> l.add(Optional.ofNullable(t).filter(pre)));
+        return l;
     }
 
     /**
