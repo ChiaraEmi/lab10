@@ -64,9 +64,6 @@ public final class LambdaUtilities {
      *         otherwise.
      */
     public static <T> List<Optional<T>> optFilter(final List<T> list, final Predicate<T> pre) {
-        /*
-         * Suggestion: consider Optional.filter
-         */
         final List<Optional<T>> l = new ArrayList<>(list.size());
         list.forEach(t -> l.add(Optional.ofNullable(t).filter(pre)));
         return l;
@@ -85,10 +82,12 @@ public final class LambdaUtilities {
      *         based on the mapping done by the function
      */
     public static <R, T> Map<R, Set<T>> group(final List<T> list, final Function<T, R> op) {
-        /*
-         * Suggestion: consider Map.merge
-         */
-        return emptyMap();
+        final Map<R, Set<T>> m = new LinkedHashMap<>();
+        list.forEach(t -> {
+            m.merge(op.apply(t), Set.of(t), LambdaUtilities::union);
+        });
+        return m;
+
     }
 
     private static <T> Set<T> union(final Set<T> set1, final Set<T> set2) {
