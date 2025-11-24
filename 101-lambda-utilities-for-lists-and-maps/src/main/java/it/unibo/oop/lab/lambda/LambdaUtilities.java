@@ -91,6 +91,13 @@ public final class LambdaUtilities {
         return emptyMap();
     }
 
+    private static <T> Set<T> union(final Set<T> set1, final Set<T> set2) {
+        final Set<T> union = new LinkedHashSet<>(set1);
+        union.addAll(set2);
+        return Collections.unmodifiableSet(union);
+    }
+
+
     /**
      * @param map
      *            input map
