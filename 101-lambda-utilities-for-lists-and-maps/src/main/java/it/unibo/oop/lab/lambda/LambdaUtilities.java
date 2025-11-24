@@ -90,12 +90,20 @@ public final class LambdaUtilities {
 
     }
 
+    /**
+     * @param set1
+     *            input set
+     * @param set2
+     *            input set
+     * @param <T>
+     *            element type
+     * @return a set that is the union of two sets
+     */
     private static <T> Set<T> union(final Set<T> set1, final Set<T> set2) {
         final Set<T> union = new LinkedHashSet<>(set1);
         union.addAll(set2);
         return Collections.unmodifiableSet(union);
     }
-
 
     /**
      * @param map
