@@ -26,7 +26,6 @@ public interface DrawNumberView {
     void result(DrawResult res);
 
     /**
-     * Displays errors generated in the controller.
      * @param message the message of error
      */
     void displayError(String message);
