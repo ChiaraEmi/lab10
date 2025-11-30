@@ -68,12 +68,26 @@ public final class MusicGroupImpl implements MusicGroup {
 
     @Override
     public Optional<String> longestSong() {
-        return Optional.empty();
+        return songs.stream()
+                .max((s1, s2) -> Double.compare(s1.getDuration(), s2.getDuration()))
+                .map(Song::getSongName);
     }
 
     @Override
     public Optional<String> longestAlbum() {
-        return Optional.empty();
+        return albums.keySet().stream()
+                .max((a1, a2) -> 
+                    Double.compare(
+                        songs.stream()
+                        .filter(s -> s.getAlbumName().isPresent() && s.getAlbumName().get().equals(a1))
+                        .mapToDouble(Song::getDuration)
+                        .sum(),
+                        songs.stream()
+                        .filter(s -> s.getAlbumName().isPresent() && s.getAlbumName().get().equals(a2))
+                        .mapToDouble(Song::getDuration)
+                        .sum()
+                    )
+                );
     }
 
     private static final class Song {
