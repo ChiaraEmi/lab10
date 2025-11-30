@@ -7,12 +7,11 @@ import java.util.List;
 /**
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
-    private static final int MIN = 0;
-    private static final int MAX = 100;
-    private static final int ATTEMPTS = 10;
+    private static final String CONFIG_FILE = "config.yml";
 
     private final DrawNumber model;
     private final List<DrawNumberView> views;
+    private final Configuration conf = new ResourceLoader().loadFromRes(CONFIG_FILE);
 
     /**
      * @param views
@@ -27,7 +26,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             view.setObserver(this);
             view.start();
         }
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+        this.model = new DrawNumberImpl(conf.getMin(), conf.getMax(), conf.getAttempts());
     }
 
     @Override
